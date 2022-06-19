@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>姓名案例_watch实现</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<body>
+    <div id="root">
+        姓：<input type="text" placeholder="请输入姓" v-model:value="firstName"/><br/><br/>
+        名：<input type="text" placeholder="请输入名" v-model="lastName"/><br/><br/>
+        全名：<span>{{fullName}}</span>
+    </div>
+
+<script type="text/javascript">
+    Vue.config.productionTip=false
+
+    const vm = new Vue({
+        el:'#root',
+        data:{
+            firstName:'张',
+            lastName:'三',
+            fullName:'张-三'
+        },
+        computed:{
+            //计算属性内不能完成异步操作
+        },
+        watch:{
+            firstName(val){
+                setTimeout(()=>{ //watch内可以完成异步操作
+                    return this.fullName=val+'-'+this.lastName
+                },1000)
+            },
+            lastName(val){
+                return this.fullName=this.firstName+'-'+val
+            }
+        }
+    })
+</script>
+</body>
+</html>

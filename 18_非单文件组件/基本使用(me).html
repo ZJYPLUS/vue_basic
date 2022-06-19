@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>基本使用</title>
+</head>
+<script type="text/javascript" src="../js/vue.js"></script>
+<body>
+    <div id="root">
+        <!--第三步：使用组件-->
+        <school></school>
+        <hr/>
+        <student/>
+    </div>
+    <hr/>
+
+<script type="text/javascript">
+    //第一步：创建组件school
+    const school = Vue.extend({
+        template:`
+                <div>
+                    <h2>学校名称：{{schoolName}}</h2>
+                    <h2>学校地址：{{schoolAddress}}</h2>
+                    <button @click="showShowName">点击显示学校名称</button>
+                </div>
+            `,
+        data(){
+            return{
+                schoolName:'清华大学',
+                schoolAddress:'北京'
+            }
+        },
+        methods:{
+            showShowName(){
+                alert(this.schoolName)
+            }
+        }
+    })
+
+    const student = Vue.extend({
+        template:`
+                <div>
+                    <h2>学生姓名：{{studentName}}</h2>
+                    <h2>学生年龄：{{studentAge}}</h2>
+                    <input type="text" v-model="studentName">
+                </div>
+            `,
+        data(){
+            return{
+                studentName:'朱家毅',
+                studentAge:'22'
+            }
+        },
+        watch:{
+            studentName(newValue,oldValue){
+                console.log('studentName被修改了，新值为'+newValue+'，旧值为：'+oldValue)
+            }
+        }
+    })
+
+    new Vue({
+        el:'#root',
+        data:{
+            msg:'你好啊！'
+        },
+        //第二步：注册组件(局部注册)
+        components:{
+            school, //简写形式，完整为school:school
+            student
+        }
+    })
+
+</script>
+</body>
+</html>

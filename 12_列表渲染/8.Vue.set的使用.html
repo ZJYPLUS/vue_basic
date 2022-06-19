@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue.set的使用</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<body>
+    <div id="root">
+        <button @click="addLeader">点击添加校长信息</button>
+        <h2>学校名称：{{school.name}}</h2>
+        <h2>学校地址：{{school.address}}</h2>
+        <h2 v-if="school.leader">校长姓名：{{school.leader}}</h2>
+    </div>
+
+<script type="text/javascript">
+    const vm = new Vue({
+        el:'#root',
+        data:{
+            school:{
+                name:'尚硅谷',
+                address:'北京'
+            }
+        },
+        methods:{
+            addLeader(){
+                Vue.set(vm.school,'leader','朱家毅')
+            }
+        }
+    })
+</script>
+</body>
+</html>

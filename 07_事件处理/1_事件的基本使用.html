@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>1_事件的基本使用</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<body>
+    <div id="root">
+        <h2>欢迎来到{{ name }}学习</h2>
+        <button v-on:click="showInfo1">点我获取学生信息1</button>
+        <button @click="showInfo2($event,66)">点我获取学生信息2</button>
+
+<!--        <a v-bind:href="xx"></a>-->
+<!--        <a :href="xx"></a>-->
+    </div>
+
+<script type="text/javascript">
+    new Vue({
+        el:'#root',
+        data:{  //data的第一种写法
+            name:'尚硅谷'
+        },
+        // data(){   //data的第二种写法
+        //     return {
+        //         name:'尚硅谷'
+        //     }
+        // }
+        methods:{
+            showInfo1(event){
+                console.log(event.target.innerText)
+                alert('同学你好！')
+            },
+            showInfo2(event,number){
+                console.log(event.target.innerText,number)
+                alert('同学你好!!')
+            }
+        }
+    })
+</script>
+</body>
+</html>

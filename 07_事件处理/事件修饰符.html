@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件修饰符</title>
+    <style type="text/css">
+        *{
+            margin-top: 20px;
+        }
+        #div1{
+            width: 100%;
+            height: 50px;
+            background-color: skyblue;
+        }
+        #div2{
+            width: 90%;
+            height: 27px;
+            background-color: orange;
+        }
+    </style>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<body>
+    <div id="root">
+        <h2>欢迎来到{{name}}学习</h2>
+        <!--@click.prevent阻止默认事件（常用）-->
+        <a href="http://www.baidu.com" @click.prevent="showInfo1">点我测试阻止默认事件</a>
+        <!--@click.stop阻止事件冒泡（常用）-->
+        <div id="demo1" @click="showInfo1">
+            <button @click.stop="showInfo1">点我测试事件冒泡</button>
+        </div>
+        <!--@click.once事件只触发一次（常用）-->
+        <button @click.once="showInfo1">点我测试事件只触发一次</button>
+        <!--@click.capture事件的捕获模式（先捕获，再冒泡。这里表示在捕获阶段就开始处理事件）-->
+        <div id="div1" @click.capture="showMsg(1)">
+            <span>div1</span>
+            <div id="div2" @click="showMsg(2)">
+                <span>div2</span>
+            </div>
+        </div>
+        <!--@click.self一定程度生也能阻止事件冒泡（只有event.target是当前操作的元素时才触发事件）-->
+        <div @click.self="showInfo1">
+            <button @click="showInfo1">点我测试事件冒泡</button>
+        </div>
+    </div>
+
+<script type="text/javascript">
+    new Vue({
+        el:'#root',
+        data:{
+            name:'尚硅谷'
+        },
+        methods:{
+            showInfo1(e){
+                // e.preventDefault()  //原生阻止默认事件
+                // e.stopPropagation() //原生阻止事件冒泡
+                alert('同学你好！')
+            },
+            showMsg(msg){
+                console.log(msg)
+            }
+        }
+    })
+</script>
+</body>
+</html>

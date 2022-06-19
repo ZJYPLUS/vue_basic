@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script type="text/javascript">
+        var obj1 = {x:110};
+        var obj2 = {y:120};
+
+        Object.defineProperty(obj2,'x',{
+            get() {
+                return obj1.x
+            },
+            set(value) {
+                return obj1.x=value
+            }
+        })
+
+        Object.defineProperty(obj1,'y',{
+            get() {
+                return obj2.y
+            },
+            set(value) {
+                return obj2.y=value
+            }
+        })
+
+        document.write(obj1.y)
+        document.write(obj2.x)
+    </script>
+</body>
+</html>

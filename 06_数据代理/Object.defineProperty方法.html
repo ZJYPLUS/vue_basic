@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>回顾Object.defineProperty方法</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<body>
+    <div id="root">
+        <h2>姓名：{{name}}</h2>
+        <h2>年龄：{{age}}</h2>
+    </div>
+  <script type="text/javascript">
+      Vue.config.productionTip=false  //阻止vue在启动时生成生产提示
+      const vm = new Vue({
+          el:'#root', //el的第一种写法
+          data:{
+              name:'朱家毅',
+              age:22
+          }
+      })
+      //vm.$mount('#root')  el的第二种写法
+  </script>
+</body>
+</html>

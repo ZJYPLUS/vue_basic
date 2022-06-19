@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>天气案例_深度监视</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<body>
+    <div id="root">
+        <h2>今天天气很{{ inFo }}</h2>
+        <button @click="changeWeather">切换天气（第一种方式）</button>
+        <!--绑定事件的时候：@xxx='yyy',yyy可以写一些简单的语句-->
+        <button @click="isHot=!isHot">切换天气（第二种方式）</button>
+        <hr/>
+        <h2>a的值是：{{numbers.a}}</h2>
+        <button @click="numbers.a++">点击a+1</button>
+        <hr/>
+        <h2>b的值是：{{numbers.b}}</h2>
+        <button @click="numbers.b++">点击b+1</button>
+    </div>
+
+<script type="text/javascript">
+    Vue.config.productionTip=false
+
+    const vm = new Vue({
+        el:'#root',
+        data:{
+            isHot:true,
+            numbers:{
+                a:1,
+                b:2
+            }
+        },
+        computed:{ //使用计算属性完成天气状态展示
+            inFo(){
+                return this.isHot ? '炎热' : '凉爽'
+            }
+        },
+        methods:{
+            changeWeather(){
+                return this.isHot = !this.isHot
+            }
+        },
+        watch:{  //第一种监视方式，直接在vm内部配置watch属性
+            inFo:{  //被监视的属性
+                immediate:true, //表示初始化时让handler调用一下
+                //handler什么时候被调用？当被监视属性inFo发生改变的时候
+                handler(newValue,oldValue){
+                    console.log("isHot被修改了","新的值是:"+newValue+",旧的值是:"+oldValue)
+                }
+            },
+
+            'numbers.a':  {  //监视多级结构中某个属性的变化
+                handler(newValue, oldValue) {
+                    console.log("numbers.a发生了变化")
+                }
+            },
+
+            numbers: {  //监视多级结构中所有属性的变化
+                deep:true, //通过deep:true可以监视对象内部所有值的改变
+                handler(newValue, oldValue) {
+                    console.log("numbers发生了变化")
+                }
+            }
+        }
+    })
+
+    // vm.$watch("isHot",{  //第二种监视方式，通过vue实例对象vm上的$watch属性实现，
+    //     immediate:true,
+    //     handler(newValue,oldValue){
+    //         console.log("isHot被修改了","新的值是:"+newValue+",旧的值是:"+oldValue)
+    //     }
+    // })
+</script>
+</body>
+</html>

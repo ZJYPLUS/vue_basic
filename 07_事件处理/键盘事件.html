@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>键盘事件</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<body>
+    <div id="root">
+        <h2>欢迎来到{{name}}学习</h2>
+        <input @keyup.enter="showMsg" placeholder="请输入">
+    </div>
+
+<script type="text/javascript">
+    Vue.config.productionTip=false
+
+    new Vue({
+        el:'#root',
+        data:{
+            name:'尚硅谷'
+        },
+        methods:{
+            showMsg(e){
+                console.log(e.target.value)
+            }
+        }
+    })
+</script>
+</body>
+</html>

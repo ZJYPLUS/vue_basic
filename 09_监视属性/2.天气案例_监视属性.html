@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>天气案例_监视属性</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<body>
+    <div id="root">
+        <h2>今天天气很{{ inFo }}</h2>
+        <button @click="changeWeather">切换天气（第一种方式）</button>
+        <!--绑定事件的时候：@xxx='yyy',yyy可以写一些简单的语句-->
+        <button @click="isHot=!isHot">切换天气（第二种方式）</button>
+    </div>
+
+<script type="text/javascript">
+    Vue.config.productionTip=false
+
+    const vm = new Vue({
+        el:'#root',
+        data:{
+            isHot:true
+        },
+        computed:{ //使用计算属性完成天气状态展示
+            inFo(){
+                return this.isHot ? '炎热' : '凉爽'
+            }
+        },
+        methods:{
+            changeWeather(){
+                return this.isHot = !this.isHot
+            }
+        },
+        // watch:{  //第一种监视方式，直接在vm内部配置watch属性
+        //     inFo:{  //被监视的属性
+        //         immediate:true, //表示初始化时让handler调用一下
+        //         //handler什么时候被调用？当被监视属性inFo发生改变的时候
+        //         handler(newValue,oldValue){
+        //             console.log("isHot被修改了","新的值是:"+newValue+",旧的值是:"+oldValue)
+        //         }
+        //     }
+        // }
+    })
+
+    vm.$watch("isHot",{  //第二种监视方式，通过vue实例对象vm上的$watch属性实现，
+        immediate:true,
+        handler(newValue,oldValue){
+            console.log("isHot被修改了","新的值是:"+newValue+",旧的值是:"+oldValue)
+        }
+    })
+</script>
+</body>
+</html>
